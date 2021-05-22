@@ -6,7 +6,7 @@ myFunction(1000);
 
 function myFunction(p1) {
     let j=0;
-    for (i = 1; i <= p1; i++) {
+    for (let i = 1; i <= p1; i++) {
         j=j+i;
     };
     console.log(j);
