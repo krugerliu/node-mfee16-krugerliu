@@ -1,0 +1,57 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>XHR</title>
+  </head>
+  <body>
+    <button id="asyncBtn">非同步(promise)</button>
+    <button id="countBtn">計數器</button>
+    <div id="count">0</div>
+    <div id="message">XXXXX</div>
+    <div id="message2">YYYYY</div>
+  </body>
+  <script>
+    var message = document.getElementById("message");
+    var asyncBtn = document.getElementById("asyncBtn");
+    var countBtn = document.getElementById("countBtn");
+    var count = document.getElementById("count");
+
+    countBtn.addEventListener("click", function () {
+      count.innerText = parseInt(count.innerText, 10) + 1;
+    });
+
+    asyncBtn.addEventListener("click", function () {
+      // 呼叫具 promise 功能的函式, 並以 .then 及 .catch 代表成功與失敗 
+      xhrPromise()
+        .then((result) => {
+          // 將 server 傳回的資料顯示螢幕上
+          message.innerText = `非同步請求 : ${result}`;
+        })
+        .catch((error) => {
+          // 出現錯誤時, 也要顯示於螢幕上
+          message.innerText = `非同步請求失敗 ${error}`;
+        })
+        .finally(() => {
+          message2.innerText = `finally test`;
+        });
+    });
+
+    // 具有 promise 功能的函式
+    function xhrPromise() {
+      return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://34.217.120.25:3000", true);
+        xhr.onload = function () {
+          if (this.status === 200) {
+            // 表示資料抓取正常
+            resolve(xhr.responseText);
+          } else {
+            // 不正常時, 傳回訊息給上一層的 .catch(error) 流程
+            reject(xhr.status);
+          }
+        };
+        xhr.send();
+      });
+    }
+  </script>
+</html>
