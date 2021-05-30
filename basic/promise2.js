@@ -26,11 +26,19 @@ let doWork = function (job, timer, cb) {
     .then((result) => {
       // fulfilled 處理成功 resolve
       console.log(result);
-      return doWorkPromise("吃早餐", 3000, false);
+      return doWorkPromise("吃早餐", 2000, true);
     })
     .then((result) => {
       console.log(result);
-      return doWorkPromise("寫功課", 5000, true);
+      return doWorkPromise("寫功課", 2000, true);
+    })
+    .then((result) => {
+        console.log(result);
+        return doWorkPromise(temp1(), 2000, true);
+    })
+    .then((result) => {
+        console.log(result);
+        return doWorkPromise(temp2(), 2000, true);
     })
     .then((result) => {
       console.log(result);
@@ -42,3 +50,11 @@ let doWork = function (job, timer, cb) {
     .finally(() => {
       console.log("我是 Finally");
     });
+
+    function temp1(){
+        return "just a test 1";
+    }
+
+    function temp2(){
+        return "just a test 2";
+    }
