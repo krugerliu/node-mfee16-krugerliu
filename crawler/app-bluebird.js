@@ -33,7 +33,7 @@ readFileBlue("stock.txt", "utf-8")
   });
 
   // 具有 promise 功能的函式, 可進行非同步處理
-  function readFilePromise() {
+  /* function readFilePromise() {
     return new Promise((resolve, reject) => {
       fs.readFile("stock.txt", "utf8", (err, data) => {
         if (err) {
@@ -42,4 +42,4 @@ readFileBlue("stock.txt", "utf-8")
         resolve(data);
       });
     });
-  };
+  }; */
