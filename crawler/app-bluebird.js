@@ -1,20 +1,37 @@
 const axios = require("axios");
 const fs = require("fs");
-// 須先安裝 moment.js (可使用 npm install moment 指令安裝)
-const sys_date = require("moment");
-// 須先安裝 bluebird.js (可使用 npm install bluebird 指令安裝)
+const moment = require("moment");
 const Promise = require("bluebird");
-const readFileBlue = Promise.promisify(fs.readFile);
 
-// 呼叫具有 promise 功能的函式, 以便進行非同步處理
-// readFilePromise()
-readFileBlue("stock.txt", "utf-8")
+// 因為用 bluebird 所以不用自己包
+// function readFilePromise() {
+//   return new Promise((resolve, reject) => {
+//     fs.readFile("stock.txt", "utf8", (err, data) => {
+//       if (err) {
+//         reject(err);
+//       }
+//       resolve(data);
+//     });
+//   });
+// }
+
+// 方法1: 一個函是一個函式包
+// 用 bluebird 包 callback 版本的 readFile
+// const readFile = Promise.promisify(fs.readFile);
+
+// 方法2: 整個 fs 都包起來
+// 把 fs 所有的 function 都包成 promise
+// 但是原本的函式名稱後面會被加上 Async
+const fsBlue = Promise.promisifyAll(fs);
+fsBlue
+  .readFileAsync("stock.txt", "utf-8")
   .then((stockCode) => {
-    console.log("股票代號 : ", stockCode);
+    console.log("stockCode:", stockCode);
+
     return axios.get("https://www.twse.com.tw/exchangeReport/STOCK_DAY", {
       params: {
         response: "json",
-        date: sys_date().format("YYYYMMDD"),
+        date: moment().format("YYYYMMDD"),
         stockNo: stockCode,
       },
     });
@@ -31,15 +48,3 @@ readFileBlue("stock.txt", "utf-8")
   .catch((err) => {
     console.error(err);
   });
-
-  // 具有 promise 功能的函式, 可進行非同步處理
-  /* function readFilePromise() {
-    return new Promise((resolve, reject) => {
-      fs.readFile("stock.txt", "utf8", (err, data) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(data);
-      });
-    });
-  }; */
