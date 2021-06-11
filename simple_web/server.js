@@ -7,7 +7,7 @@ const fs = require("fs/promises");
 // createServer(Listener)
 // Listener(request, response) 負責處理進來的連線, request 是請求物件, response 是回覆物件
 const server = http.createServer(async (req, res) => {
-  console.log("有連線進來了");
+  console.log("a connection come from client side");
   console.log(req.url);
 
   // 將 url 一般化，移除他的 query string、非必要的結尾斜線，並且一率小寫
