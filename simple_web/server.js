@@ -44,7 +44,8 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-// 需要先 createServer 後, 才可以 listen, port 3000 則是可依據實際需要變更 port number, 不一定是要 3000, 而 80 是預設值
+// 需要先 createServer 後, 才可以進行 listen
+// port 3000 則是可依據實際需要變更 port number, 不一定是要 3000, 而 80 是預設值
 server.listen(3000, () => {console.log("Server 開始監聽 3000 port");});
 
 
