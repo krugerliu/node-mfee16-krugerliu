@@ -24,9 +24,10 @@ const server = http.createServer(async (req, res) => {
   // 路由 router
   switch (path) {
     case "":
-      res.end("Hi 這是首頁 我是小賴");
+      res.end("Hi ~ This is the home page");
       break;
     case "/test":
+      // res.setHeader("Content-Type", "text/plain;charset=UTF-8"); 也可用 plain 取代使用 html 的方式
       res.setHeader("Content-Type", "text/html;charset=UTF-8");
       let content = await fs.readFile("test.html");
       res.end(content);
@@ -34,8 +35,8 @@ const server = http.createServer(async (req, res) => {
     case "/about":
       // 把 query string 抓出來用, 如 http://localhost:3000/about?name=Peter
       // set vs get 存取運算子
-      let name = url.searchParams.get("name") || "網友";
-      res.end(`Hi, ${name} 這是關於我們`);
+      let name = url.searchParams.get("name") || "friend!";
+      res.end(`Hi, ${name} this is the web page about us`);
       break;
     default:
       res.writeHead(404);
