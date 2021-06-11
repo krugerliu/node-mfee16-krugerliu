@@ -21,6 +21,7 @@ app.use(function (req, res, next) {
 
 // 路由 router
 app.get("/", function (req, res) {
+  // res.send 的內容也可以由 html 字串組合而成
   res.send("<html><body>Hello ~ <font color='red'>Express</font></body></html>");
 });
 
@@ -31,9 +32,17 @@ app.get("/about", function (req, res) {
 app.get("/test", function (req, res) {
   //res.send("Test Express");
   // 可使用 html 語法
-  let myTest = "<html><body>it is <font color='red'>my test</font></body></html>";
+  //let myTest = "<html><body>it is <font color='red'>my test</font></body></html>";
+  let myTest = str_conbine();
   res.send(myTest);
 });
+
+function str_conbine(){
+  let v_html = "<html><body>";
+  v_html += "it is come from <font color='red'>my test</font>"
+  v_html += "</body></html>";
+  return v_html;
+};
 
 // port 3000 則是可依據實際需要變更 port number, 不一定是要 3000, 而 80 是預設值
 app.listen(3000, () => {
