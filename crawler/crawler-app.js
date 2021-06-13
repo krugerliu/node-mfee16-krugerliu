@@ -34,8 +34,7 @@ connection = Promise.promisifyAll(connection);
             console.log(response.data.title);
             let stockData = response.data.data;
             let stockTransaction = response.data.data.map((stockData) => {
-                stockData = stockData_reFormat(stockData, v_stockCode[i]);  // 資料重新校正回歸
-                return stockData;
+                return stockData_reFormat(stockData, v_stockCode[i]);  // 資料重新校正回歸
             });
             await connection.queryAsync(`insert ignore into stock_price (stock_id, date, volume, amount, open_price, high_price, low_price, close_price, delta_price, transactions) VALUES ?`, [stockTransaction]);
             console.log(`股票代碼： ${v_stockCode[i]} 已完成更新\n\n`);
