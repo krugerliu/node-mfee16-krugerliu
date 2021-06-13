@@ -37,7 +37,6 @@ connection = Promise.promisifyAll(connection);
                 stockData = stockData_reFormat(stockData, v_stockCode[i]);  // 資料重新校正回歸
                 return stockData;
             });
-            await connection.queryAsync(`delete from stock_price where stock_id=${v_stockCode[i]}`);
             await connection.queryAsync(`insert ignore into stock_price (stock_id, date, volume, amount, open_price, high_price, low_price, close_price, delta_price, transactions) VALUES ?`, [stockTransaction]);
             console.log(`股票代碼： ${v_stockCode[i]} 已完成更新\n\n`);
         };
