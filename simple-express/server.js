@@ -7,6 +7,8 @@ let app = express();
 // module < package < framework
 // express is a package，但完整到足以被稱為是框架
 
+app.use(express.static("public"));
+
 // middleware 中間件 中介函式
 // 在 express 裡
 // req -> router
