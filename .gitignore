@@ -5,3 +5,5 @@ node_modules
 stock.txt
 
 .env
+
+uploads

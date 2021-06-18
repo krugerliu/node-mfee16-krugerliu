@@ -7,7 +7,21 @@ let app = express();
 // module < package < framework
 // express is a package，但完整到足以被稱為是框架
 
+// 可以指定一個或多個目錄是「靜態資源目錄」
+// 自動幫你為 public 裡面的檔案建立路由
 app.use(express.static("public"));
+
+// 第一個是變數 views
+// 第二個是檔案夾名稱
+app.set("views", "views");
+// 告訴 express 我們用的 view engine 是 pug
+app.set("view engine", "pug");
+
+app.use(function (req, res, next) {
+  console.log("無用 Middleware");
+  // 「幾乎」都要呼叫，讓他往下繼續
+  next();
+});
 
 // middleware 中間件 中介函式
 // 在 express 裡
@@ -24,11 +38,13 @@ app.use(function (req, res, next) {
 // 路由 router
 app.get("/", function (req, res) {
   // res.send 的內容也可以由 html 字串組合而成
-  res.send("<html><body>Hello ~ <font color='red'>Express</font></body></html>");
+  //res.send("<html><body>Hello ~ <font color='red'>Express</font></body></html>");
+  res.render("index");
 });
 
 app.get("/about", function (req, res) {
-  res.send("About Express AAAAAA");
+  //res.send("About Express AAAAAA");
+  res.render("about");
 });
 
 app.get("/test", function (req, res) {
