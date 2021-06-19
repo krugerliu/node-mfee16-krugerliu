@@ -38,6 +38,9 @@ app.use(function (req, res, next) {
   next();
 });
 
+let stockRouter = require("./routes/stock");
+app.use("/stock", stockRouter);
+
 // 路由 router
 // (request, response) {} 去回應這個請求
 app.get("/", function (req, res) {
@@ -60,6 +63,7 @@ app.get("/test", function (req, res) {
   res.send("Test Express");
 });
 
+/*
 app.get("/stock", async (req, res) => {
   let queryResults = await connection.queryAsync("SELECT * FROM stock;");
   res.render("stock/list", {
@@ -73,6 +77,7 @@ app.get("/stock/:stockCode", async (req, res) => {
       stockPrices: queryResults,
   });
 })
+*/
 
 app.listen(3000, async () => {
   // 在 web server 開始的時候，去連線資料庫
