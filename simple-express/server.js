@@ -67,6 +67,13 @@ app.get("/stock", async (req, res) => {
   });
 });
 
+app.get("/stock/:stockCode", async (req, res) => {
+  let queryResults = await connection.queryAsync("SELECT*FROM stock_price WHERE stock_id = ? ORDER BY date;", req.params.stockCode)
+  res.render("stock/detail", {
+      stockPrices: queryResults,
+  });
+})
+
 app.listen(3000, async () => {
   // 在 web server 開始的時候，去連線資料庫
   await connection.connectAsync();
