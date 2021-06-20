@@ -41,6 +41,9 @@ app.use(function (req, res, next) {
 let stockRouter = require("./routes/stock");
 app.use("/stock", stockRouter);
 
+let apiRouter = require("./routes/api")
+app.use("/api",apiRouter);
+
 // 路由 router
 // (request, response) {} 去回應這個請求
 app.get("/", function (req, res) {
